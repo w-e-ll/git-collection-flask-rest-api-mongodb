@@ -1,9 +1,6 @@
 # Git Collection Rest API
 
-[Task](https://bitbucket.org/smashdocs/coding-challenge-backend/README.md): 
-### Create a simple RESTful API that imports data from GitHub Search API https://developer.github.com/v3/search/ 
-
-### Technologies
+### A simple Flask REST API that imports data from GitHub Search API https://developer.github.com/v3/search/ 
 
 - Python 3
 - Flask
