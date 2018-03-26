@@ -42,9 +42,9 @@ Bonus 2
 
 ### Make Initial Setup:
 ```
-$ git clone https://w-e-ll@bitbucket.org/w-e-ll/coding-challenge-backend.git
+$ git clone https://github.com/w-e-ll/git-collection-flask-rest-api-mongodb.git
 
-$ cd coding-challenge-backend
+$ cd git-collection-flask-rest-api-mongodb
 ```
 Docker compose encapsulating
 ```
