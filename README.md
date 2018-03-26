@@ -71,3 +71,5 @@ OR Make Initial Setup
 - pip install -r requirements.txt
 - python collection.py
 ```
+
+made by: https://w-e-ll.com
