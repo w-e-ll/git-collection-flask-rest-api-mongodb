@@ -39,7 +39,7 @@ def add():
 
 
 @app.route('/list', methods=['GET'])
-def list():
+def list_all():
     """
     List of documents, - collection of git db.
     """
