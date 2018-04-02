@@ -37,6 +37,7 @@ def add():
         git.insert(document)
     return 'We added data to DB'
 
+
 @app.route('/list', methods=['GET'])
 def list():
     """
