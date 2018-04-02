@@ -32,7 +32,7 @@ def add():
     data = requests.get(api).json()
     git = mongo.db.git
     for i in data['items']:
-        document = {'name': i['full_name'], 'url': i['html_url'],'description': i['description'], 
+        document = {'name': i['full_name'], 'url': i['html_url'],'description': i['description'],
                     'count': i['stargazers_count'], 'language': i['language']}
         git.insert(document)
     return 'We added data to DB'
@@ -44,19 +44,21 @@ def list():
     List of documents, - collection of git db.
     """
     git = mongo.db.git
+    total = git.find().count()
+    offset = int(request.args['offset'])
+    limit = int(request.args['limit'])
+    first_id = git.find().sort('_id', pymongo.ASCENDING)
+    last_id = first_id[offset]['_id']
+    link_next = 'http://0.0.0.0:5000/list?limit=' + str(limit) + '&offset=' + str(offset + limit)
+    link_text_next = 'NEXT'
+    next_url = '<a href="{}">{}</a>'.format(link_next, link_text_next)
+    link_prev = 'http://0.0.0.0:5000/list?limit=' + str(limit) + '&offset=' + str(offset - limit)
+    link_text_prev = 'NEXT'
+    prev_url = '<a href="{}">{}</a>'.format(link_prev, link_text_prev)
     document_list = []
     for q in git.find({'_id': {'$gte': last_id}}).sort('_id', pymongo.ASCENDING).limit(limit):
         document_list.append({'name': q['name'], 'url': q['url'], 'description': q['description'],
                               'count': q['count'], 'language': q['language']})
-    total = git.find().count()
-    offset = int(request.args['offset'])
-    limit = int(request.args['limit']) 
-    first_id = git.find().sort('_id', pymongo.ASCENDING)
-    last_id = first_id[offset]['_id']
-    link_next = 'http://0.0.0.0:5000/list?limit=' + str(limit) + '&offset=' + str(offset + limit)
-    next_url = '<a href="{}">'NEXT'</a>'.format(link_next)
-    link_prev = 'http://0.0.0.0:5000/list?limit=' + str(limit) + '&offset=' + str(offset - limit)
-    prev_url = '<a href="{}">'PREV'</a>'.format(link_prev)
     return jsonify({'total': total, 'result': document_list, 'prev_url': prev_url, 'next_url': next_url})
 
 
@@ -75,4 +77,4 @@ def not_found(error=None):
 
 
 if __name__ == '__main__':
-    app.run(host='0.0.0.0', port=5000, debug=True)
+   app.run(host='0.0.0.0', port=5000, debug=True)
